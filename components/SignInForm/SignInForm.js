@@ -20,11 +20,11 @@ const ValidData = {
   },
 };
 
-useEffect(() => {
-  checkAccessToken("signInToken");
-}, []);
-
 export function SignInForm() {
+  useEffect(() => {
+    checkAccessToken("signInToken");
+  }, []);
+
   const {
     register,
     handleSubmit,

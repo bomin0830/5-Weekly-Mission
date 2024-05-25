@@ -13,7 +13,8 @@ const ValidData = {
       value: regexData.email,
       message: "올바른 이메일 주소가 아닙니다.",
     },
-    validate: (value) => checkDuplicateEmail(value) || "이메일 중복됨",
+    validate: async (value) =>
+      (await checkDuplicateEmail(value)) || "이메일 중복됨",
   },
   pwd: {
     required: { value: true, message: "비밀번호를 입력해 주세요" },

@@ -1,1 +1,1 @@
-export * from "./SingInForm";
+export * from "./SignInForm";
