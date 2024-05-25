@@ -3,6 +3,7 @@ import classNames from "classnames/bind";
 import { useForm } from "react-hook-form";
 import { InputBox } from "../InputBox/InputBox";
 import { postIdPwd, regexData, ApiUrl, checkAccessToken } from "../../utils";
+import { useEffect } from "react";
 
 const cx = classNames.bind(styles);
 
@@ -19,7 +20,9 @@ const ValidData = {
   },
 };
 
-checkAccessToken("signInToken");
+useEffect(() => {
+  checkAccessToken("signInToken");
+}, []);
 
 export function SignInForm() {
   const {
