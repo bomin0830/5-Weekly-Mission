@@ -1,8 +1,8 @@
-import styles from "./SinginForm.module.scss";
+import styles from "./SignUpForm.module.scss";
 import classNames from "classnames/bind";
 import { useForm } from "react-hook-form";
-import { InputBox } from "../InputBox/InputBox";
-import { postIdPwd, regexData, ApiUrl, checkAccessToken } from "../../utils";
+import { InputBox } from "../InputBox";
+import { checkDuplicateEmail, regexData } from "../../utils";
 
 const cx = classNames.bind(styles);
 
@@ -16,23 +16,27 @@ const ValidData = {
   },
   pwd: {
     required: { value: true, message: "비밀번호를 입력해 주세요" },
+    pattern: {
+      value: regexData.pwd,
+      message: "비밀번호는 영문, 숫자 조합 8자 이상 입력해 주세요.",
+    },
   },
 };
 
-checkAccessToken("signInToken");
-
-export function SinginForm() {
+export function SignUpForm() {
   const {
     register,
     handleSubmit,
     formState: { errors },
-    setError,
+    watch,
   } = useForm({
     mode: "onBlur",
   });
 
-  const onSubmit = (data) => {
-    postIdPwd(ApiUrl.signin, data, setError, "signInToken");
+  const password = watch("password");
+
+  const onSubmit = () => {
+    location.href = "folder";
   };
 
   return (
@@ -41,20 +45,31 @@ export function SinginForm() {
         label="이메일"
         name="email"
         placeholder="이메일을 입력해 주세요"
-        valid={ValidData.email}
         errors={errors}
+        valid={ValidData.email}
         register={register}
+        validate={(value) => checkDuplicateEmail(value) || "이메일 중복됨"}
       />
       <InputBox
         label="비밀번호"
         name="password"
-        placeholder="비밀번호를 입력해 주세요"
+        placeholder="영문, 숫자를 조합해 8자 이상 입력해 주세요."
         valid={ValidData.pwd}
         errors={errors}
         register={register}
       />
+      <InputBox
+        label="비밀번호 확인"
+        name="passwordCheck"
+        placeholder="비밀번호와 일치하는 값을 입력해주세요"
+        errors={errors}
+        register={register}
+        validate={(value) =>
+          value === password || "비밀번호가 일치하지 않습니다."
+        }
+      />
       <button type="submit" className={cx("submit-button")}>
-        로그인
+        회원가입
       </button>
     </form>
   );

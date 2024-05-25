@@ -1,9 +1,9 @@
-import styles from "./SocalLogin.module.scss";
+import styles from "./SocialLogin.module.scss";
 import classNames from "classnames/bind";
 
 const cx = classNames.bind(styles);
 
-export function SocalLogin() {
+export function SocialLogin() {
   return (
     <div className={cx("social-login")}>
       <p>소셜 로그인</p>

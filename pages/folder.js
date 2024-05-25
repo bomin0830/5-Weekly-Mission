@@ -81,7 +81,7 @@ function FolderPage({ user, Folders, AllLinks }) {
             <LinkList
               searchKeyWord={searchKeyWord}
               links={links}
-              createdtime="created_at"
+              createdTime="created_at"
               image="image_source"
             />
           )}

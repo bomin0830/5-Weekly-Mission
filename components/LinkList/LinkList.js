@@ -1,11 +1,11 @@
 import { LinkItem } from "../ListItem";
 import { useSearch } from "hooks";
-import styles from "./Linklist.module.scss";
+import styles from "./LinkList.module.scss";
 import classNames from "classnames/bind";
 
 const cx = classNames.bind(styles);
 
-export function LinkList({ searchKeyWord, links, createdtime, image }) {
+export function LinkList({ searchKeyWord, links, createdTime, image }) {
   const filteredLinks = useSearch(searchKeyWord, links);
 
   return (
@@ -16,7 +16,7 @@ export function LinkList({ searchKeyWord, links, createdtime, image }) {
             <li key={link.id}>
               <LinkItem
                 url={link.url}
-                createdAt={link[createdtime]}
+                createdAt={link[createdTime]}
                 imageSource={link[image]}
                 description={link.description}
                 title={link.title}

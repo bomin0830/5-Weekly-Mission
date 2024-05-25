@@ -3,7 +3,7 @@ import { useState } from "react";
 import { ModalLayout } from "../ModalLayout";
 import Image from "next/image";
 import classNames from "classnames/bind";
-import styles from "../LinkList/Linklist.module.scss";
+import styles from "../LinkList/LinkList.module.scss";
 
 const cx = classNames.bind(styles);
 
