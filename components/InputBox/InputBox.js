@@ -6,24 +6,11 @@ import { ErrorMessage } from "@hookform/error-message";
 
 const cx = classNames.bind(styles);
 
-export function InputBox({
-  label,
-  name,
-  errors,
-  register,
-  placeholder,
-  valid,
-  validate,
-}) {
+export function InputBox({ label, name, errors, register, placeholder }) {
   const [isToggle, setIsToggle] = useState(false);
 
   const handleToggle = () => {
     setIsToggle(!isToggle);
-  };
-
-  const validationProps = {
-    ...valid, // 이메일 필드에 대한 기본 유효성 검사를 포함합니다.
-    validate,
   };
 
   return (
@@ -36,7 +23,7 @@ export function InputBox({
         })}
         type={name !== "email" ? (isToggle ? "test" : "password") : "text"}
         placeholder={placeholder}
-        {...register(name, validationProps)}
+        {...register}
       />
       <ErrorMessage
         errors={errors}

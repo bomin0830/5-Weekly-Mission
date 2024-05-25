@@ -44,17 +44,15 @@ export function SignInForm() {
         label="이메일"
         name="email"
         placeholder="이메일을 입력해 주세요"
-        valid={ValidData.email}
         errors={errors}
-        register={register}
+        register={{ ...register("email", ValidData.email) }}
       />
       <InputBox
         label="비밀번호"
         name="password"
         placeholder="비밀번호를 입력해 주세요"
-        valid={ValidData.pwd}
         errors={errors}
-        register={register}
+        register={{ ...register("email", ValidData.pwd) }}
       />
       <button type="submit" className={cx("submit-button")}>
         로그인
