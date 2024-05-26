@@ -1,7 +1,7 @@
 import styles from "./SingInForm.module.scss";
 import classNames from "classnames/bind";
 import { useForm } from "react-hook-form";
-import { InputBox } from "../InputBox/InputBox";
+import { InputBox } from "../InputBox";
 import { postIdPwd, regexData, ApiUrl, checkAccessToken } from "../../utils";
 import { useEffect } from "react";
 
@@ -52,7 +52,7 @@ export function SignInForm() {
         name="password"
         placeholder="비밀번호를 입력해 주세요"
         errors={errors}
-        register={{ ...register("email", ValidData.pwd) }}
+        register={{ ...register("password", ValidData.pwd) }}
       />
       <button type="submit" className={cx("submit-button")}>
         로그인
