@@ -27,7 +27,7 @@ export function LinkInput({ folders }) {
     <div className={cx("LinkInput-wrapper")}>
       <div className={cx("LinkInput")}>
         <div className={cx("input-icon-wrapper")}>
-          <img src="./images/link.svg" alt="link img" />
+          <img src="/images/link.svg" alt="link img" />
           <input placeholder="링크를 추가해보세요" onChange={getValue} />
         </div>
         <div className={cx("add-url-button")} onClick={toggleHandler}>
@@ -65,7 +65,7 @@ export function LinkInput({ folders }) {
                         </p>
                       </div>
                       {selectedFolder === item.name && (
-                        <Image src="images/check.svg" alt="selected img" />
+                        <Image src="/images/check.svg" alt="selected img" />
                       )}
                     </div>
                   </label>

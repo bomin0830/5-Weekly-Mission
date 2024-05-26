@@ -49,7 +49,7 @@ export function LinkItem({ url, createdAt, imageSource, description, title }) {
       </a>
       <div className={cx("kebab-button")}>
         <img
-          src="images/kebab.svg"
+          src="/images/kebab.svg"
           alt="kebab-button"
           onClick={() => toggleHandler("open")}
         />

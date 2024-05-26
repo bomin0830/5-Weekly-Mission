@@ -2,10 +2,16 @@ import Link from "next/link";
 import styles from "src/styles/sign.module.scss";
 import classNames from "classnames/bind";
 import { SignInForm, SocialLogin } from "../src/components";
+import { useEffect } from "react";
+import { checkAccessToken } from "../src/utils";
 
 const cx = classNames.bind(styles);
 
 function singInPage() {
+  useEffect(() => {
+    checkAccessToken("signInToken");
+  }, []);
+
   return (
     <div className={cx("page-container")}>
       <div className={cx("contents")}>

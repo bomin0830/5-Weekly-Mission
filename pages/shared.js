@@ -15,6 +15,7 @@ const cx = classNames.bind(styles);
 function SharedPage() {
   const [links, setLinks] = useState([]);
   const [user, setUser] = useState([]);
+  const [searchKeyWord, setSearchKeyWord] = useState("");
 
   const getUserData = async () => {
     const { links } = await getLinkList();
@@ -24,16 +25,24 @@ function SharedPage() {
   };
 
   useEffect(() => {
-    getUserData;
-  });
+    getUserData();
+  }, []);
 
   return (
     <>
-      <Header user={user} />
-      <FolderInfo user={user} />
+      <Header userEmail={user.email} />
+      <FolderInfo userName={user.name} />
       <div className={cx("contents-wrapper")}>
-        <SearchBar />
-        <LinkList links={links} />
+        <SearchBar
+          searchKeyWord={searchKeyWord}
+          setSearchKeyWord={setSearchKeyWord}
+        />
+        <LinkList
+          searchKeyWord={searchKeyWord}
+          links={links}
+          createdTime="createdAt"
+          image="imageSource"
+        />
       </div>
       <Footer />
     </>

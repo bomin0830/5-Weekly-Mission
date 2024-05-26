@@ -1,4 +1,5 @@
 import { ApiUrl } from "./url";
+import axiosInstance from "./axios";
 
 export async function postIdPwd(url, inputData, setError, tokenName) {
   try {
@@ -63,9 +64,12 @@ export async function getLinkList() {
 }
 
 export async function getData(url) {
-  const response = await fetch(url);
-  const body = await response.json();
-  return body;
+  try {
+    const response = await axiosInstance.get(url);
+    return response.data;
+  } catch (error) {
+    throw error;
+  }
 }
 
 export function saveAccessTokenToLocalStorage(accessToken, accessTokenName) {
@@ -76,7 +80,7 @@ export function checkAccessToken(accessToken) {
   if (typeof window !== "undefined") {
     const token = localStorage.getItem(accessToken);
     if (token) {
-      location.href = "folder";
-    }
+      return true;
+    } else false;
   }
 }

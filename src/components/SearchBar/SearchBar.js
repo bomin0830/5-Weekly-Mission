@@ -1,6 +1,5 @@
 import { useState } from "react";
 import styles from "./SearchBar.module.scss";
-import Image from "next/image";
 import classNames from "classnames/bind";
 
 const cx = classNames.bind(styles);
@@ -23,7 +22,7 @@ export function SearchBar({ searchKeyWord, setSearchKeyWord }) {
     <>
       <div className={cx("search-box")}>
         <div>
-          <img src="./images/Search.svg" alt="searcher" />
+          <img src="/images/Search.svg" alt="searcher" />
           <input
             placeholder="링크를 검색해보세요"
             onKeyDown={handleInputValue}

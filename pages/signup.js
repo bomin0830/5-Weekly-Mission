@@ -6,6 +6,10 @@ import { SocialLogin, SignUpForm } from "../src/components";
 const cx = classNames.bind(styles);
 
 function signUpPage() {
+  useEffect(() => {
+    checkAccessToken("signInToken");
+  }, []);
+
   return (
     <div className={cx("page-container")}>
       <div className={cx("contents")}>

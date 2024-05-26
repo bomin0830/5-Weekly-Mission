@@ -9,14 +9,14 @@ export function Header({ userEmail }) {
     <header className={cx("header")}>
       <div className={cx("header-contents")}>
         <Link href="/">
-          <img src="images/logo.svg" alt="linklabrary로고" />
+          <img src="/images/logo.svg" alt="linklabrary로고" />
         </Link>
         <div className={cx("user-container")}>
           <div className={cx("icon")}>
-            <img src="images/Ellipse21.svg" alt="myicon" />
+            <img src="/images/Ellipse21.svg" alt="myicon" />
             <img
               className={cx("profile")}
-              src="images/myprofile.png"
+              src="/images/myprofile.png"
               alt="myprofile"
             />
           </div>

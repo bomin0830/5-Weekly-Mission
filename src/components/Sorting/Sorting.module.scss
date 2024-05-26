@@ -9,11 +9,18 @@
   gap: 8px;
 }
 
-.button-wrapper button {
+.folder-name-wrapper {
   border-radius: 5px;
   border: 1px solid #6d6afe;
   background: #fff;
   padding: 8px 12px;
+}
+
+.selected-folder {
+  background-color: #6d6afe;
+  .sort-name {
+    color: white;
+  }
 }
 
 .sort-name {
