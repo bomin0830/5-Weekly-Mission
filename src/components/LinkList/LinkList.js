@@ -1,5 +1,5 @@
+import { useSearch } from "../../hooks";
 import { LinkItem } from "../ListItem";
-import { useSearch } from "hooks";
 import styles from "./LinkList.module.scss";
 import classNames from "classnames/bind";
 

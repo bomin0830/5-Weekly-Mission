@@ -1,7 +1,7 @@
 import Link from "next/link";
-import styles from "../styles/sign.module.scss";
+import styles from "src/styles/sign.module.scss";
 import classNames from "classnames/bind";
-import { SignInForm, SocialLogin } from "../components";
+import { SignInForm, SocialLogin } from "../src/components";
 
 const cx = classNames.bind(styles);
 

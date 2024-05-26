@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import styles from "./Sorting.module.scss";
-import { ApiUrl } from "utils";
+import { ApiUrl } from "../../utils";
 import { ModalLayout } from "../ModalLayout";
 import classNames from "classnames/bind";
 

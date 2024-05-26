@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-    "baseUrl": "5-Weekly-Mission"
+    "baseUrl": "src"
   },
-  "include": ["5-Weekly-Mission"]
+  "include": ["src"]
 }
