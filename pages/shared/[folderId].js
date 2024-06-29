@@ -39,6 +39,8 @@ function SharedPage() {
     fetchData();
   }, [folderId]);
 
+  console.log("!!!");
+
   console.log(folder);
   return (
     <>
@@ -52,8 +54,8 @@ function SharedPage() {
         <LinkList
           searchKeyWord={searchKeyWord}
           links={linksByQuery}
-          createdTime="createdAt"
-          image="imageSource"
+          createdTime='createdAt'
+          image='imageSource'
         />
       </div>
       <Footer />
