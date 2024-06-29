@@ -1,9 +1,28 @@
 import { ApiUrl } from "./url";
 import axiosInstance from "./axios";
 
-export async function postIdPwd(url, inputData, setError, tokenName) {
+export async function postSignUp(inputData) {
   try {
-    const res = await fetch(url, {
+    const res = await fetch(ApiUrl.signUp, {
+      method: "POST",
+      headers: {
+        "Content-type": "application/json",
+      },
+      body: JSON.stringify(inputData),
+    });
+
+    if (!res.ok) {
+      throw new Error("bad request");
+    }
+    await postSignin(inputData);
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+export async function postSignin(inputData, setError = "") {
+  try {
+    const res = await fetch(ApiUrl.signIn, {
       method: "POST",
       headers: {
         "Content-type": "application/json",
@@ -16,10 +35,12 @@ export async function postIdPwd(url, inputData, setError, tokenName) {
     }
 
     const result = await res.json();
-    const accessToken = result.data.accessToken;
-    saveAccessTokenToLocalStorage(accessToken, tokenName);
+    console.log(result.accessToken);
+    const accessToken = result.accessToken;
+    saveAccessTokenToLocalStorage(accessToken, "signInToken");
     location.href = "folder";
-  } catch {
+  } catch (error) {
+    console.error("SignIn Error:", error);
     setError("password", {
       type: "server",
       message: "비밀번호를 확인해 주세요",
@@ -48,8 +69,7 @@ export async function checkDuplicateEmail(value) {
     if (!res.ok) {
       throw new Error("bad request");
     }
-
-    return (result = await res.json());
+    return true;
   } catch {
     return false;
   }
