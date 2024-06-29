@@ -1,10 +1,11 @@
 import Link from "next/link";
 import styles from "./Header.module.scss";
 import classNames from "classnames/bind";
+import Image from "next/image";
 
 const cx = classNames.bind(styles);
 
-export function Header({ userEmail }) {
+export function Header({ userEmail, userImgUrl }) {
   return (
     <header className={cx("header")}>
       <div className={cx("header-contents")}>
@@ -13,12 +14,7 @@ export function Header({ userEmail }) {
         </Link>
         <div className={cx("user-container")}>
           <div className={cx("icon")}>
-            <img src="/images/Ellipse21.svg" alt="myicon" />
-            <img
-              className={cx("profile")}
-              src="/images/myprofile.png"
-              alt="myprofile"
-            />
+            <Image fill src={userImgUrl} alt="myicon" />
           </div>
           <p>{userEmail ?? "로그인"}</p>
         </div>

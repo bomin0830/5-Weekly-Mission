@@ -51,9 +51,10 @@ function FolderPage() {
     fetchData();
   }, [folderId]);
 
+  console.log(Folders);
   return (
     <div>
-      <Header userEmail={user.email} />
+      <Header userEmail={user.email} userImgUrl={user["image_source"]} />
       <LinkInput folders={Folders} />
       <div className={cx("contents-wrapper")}>
         <SearchBar

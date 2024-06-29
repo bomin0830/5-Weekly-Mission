@@ -17,5 +17,3 @@ export function FolderInfo({ userName }) {
     </div>
   );
 }
-
-// 테스트
