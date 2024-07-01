@@ -3,6 +3,7 @@ import classNames from "classnames/bind";
 import { useForm } from "react-hook-form";
 import { InputBox } from "../InputBox";
 import { checkDuplicateEmail, postSignUp, regexData } from "../../utils";
+import { useMutation } from "@tanstack/react-query";
 
 const cx = classNames.bind(styles);
 
@@ -41,9 +42,12 @@ export function SignUpForm() {
   const onSubmit = (data) => {
     const { email, password } = data;
     const selectedData = { email, password };
-    console.log(selectedData);
-    postSignUp(selectedData);
+    postSignUpMutaion.mutate(selectedData);
   };
+
+  const postSignUpMutaion = useMutation({
+    mutationFn: (data) => postSignUp(data),
+  });
 
   return (
     <form className={cx("form-wrapper")} onSubmit={handleSubmit(onSubmit)}>

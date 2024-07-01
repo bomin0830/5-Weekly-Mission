@@ -2,13 +2,8 @@ import styles from "./SingInForm.module.scss";
 import classNames from "classnames/bind";
 import { useForm } from "react-hook-form";
 import { InputBox } from "../InputBox";
-import {
-  postIdPwd,
-  regexData,
-  ApiUrl,
-  checkAccessToken,
-  postSignin,
-} from "../../utils";
+import { regexData, postSignin } from "../../utils";
+import { useMutation } from "@tanstack/react-query";
 
 const cx = classNames.bind(styles);
 
@@ -36,9 +31,12 @@ export function SignInForm() {
   });
 
   const onSubmit = (data) => {
-    console.log(data);
-    postSignin(data, setError);
+    postSigninMutaion.mutate(data, setError);
   };
+
+  const postSigninMutaion = useMutation({
+    mutationFn: (data) => postSignin(data, setError),
+  });
 
   return (
     <form className={cx("form-wrapper")} onSubmit={handleSubmit(onSubmit)}>
