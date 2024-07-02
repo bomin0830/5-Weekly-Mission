@@ -1,4 +1,4 @@
-import { ApiUrl } from "./url";
+import { ApiUrl, baseUrl } from "./url";
 import axiosInstance from "./axios";
 
 export async function postSignUp(inputData) {
@@ -89,6 +89,17 @@ export async function getData(url) {
     return response.data;
   } catch (error) {
     throw error;
+  }
+}
+
+export async function postFolder(inputName) {
+  try {
+    const response = await axiosInstance.post(`${baseUrl}folders`, {
+      name: inputName,
+    });
+    return response.data;
+  } catch (error) {
+    console.log(error);
   }
 }
 

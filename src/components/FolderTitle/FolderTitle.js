@@ -26,22 +26,22 @@ export function FolderTitle({ name }) {
         <div className={cx("folder-name")}>{name}</div>
         <div className={cx("title-button-wrapper")}>
           <p onClick={() => toggleHandler("share")}>
-            <img src="/images/share.svg" alt="share-button" />
+            <img src='/images/share.svg' alt='share-button' />
             공유
           </p>
           <p onClick={() => toggleHandler("nameChange")}>
-            <img src="/images/pen.svg" alt="nameChange-button" />
+            <img src='/images/pen.svg' alt='nameChange-button' />
             이름 변경
           </p>
           <p onClick={() => toggleHandler("delete")}>
-            <img src="/images/Group 36.svg" alt="delete-button" />
+            <img src='/images/Group 36.svg' alt='delete-button' />
             삭제
           </p>
         </div>
       </div>
       {isOpen.share && (
         <ModalLayout
-          title="폴더 공유"
+          title='폴더 공유'
           description={name}
           toggleHandler={() => toggleHandler("share")}
         >
@@ -50,16 +50,16 @@ export function FolderTitle({ name }) {
       )}
       {isOpen.delete && (
         <ModalLayout
-          title="폴더 삭제"
+          title='폴더 삭제'
           description={name}
           toggleHandler={() => toggleHandler("delete")}
         >
-          <div className={cx("button delete")}>삭제하기</div>
+          <button className={cx("button delete")}>삭제하기</button>
         </ModalLayout>
       )}
       {isOpen.nameChange && (
         <ModalLayout
-          title="폴더 이름 변경"
+          title='폴더 이름 변경'
           toggleHandler={() => toggleHandler("nameChange")}
         >
           <div className={cx("modal-contents")}>

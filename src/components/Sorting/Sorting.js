@@ -3,22 +3,41 @@ import styles from "./Sorting.module.scss";
 import { ModalLayout } from "../ModalLayout";
 import classNames from "classnames/bind";
 import Link from "next/link";
+import { postFolder } from "../../utils";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 
 const cx = classNames.bind(styles);
 
 export function Sorting({ folders, folderId }) {
   const [isOpen, setIsOpen] = useState(false);
+  const [inputValue, setInputValue] = useState("");
+
+  const queryClient = useQueryClient();
+
+  const postFolderMutation = useMutation({
+    mutationFn: (inputValue) => postFolder(inputValue),
+  });
 
   const toggleHandler = () => {
     setIsOpen(!isOpen);
+  };
+
+  const handleAddFolder = () => {
+    postFolderMutation.mutate(inputValue);
+    queryClient.invalidateQueries();
+  };
+
+  const handleChange = (e) => {
+    setInputValue(e.target.value);
   };
 
   return (
     <>
       <div className={cx("sorting-wrapper")}>
         <div className={cx("button-wrapper")}>
+          {/* 링크 전체 */}
           <Link
-            href="/folder"
+            href='/folder'
             className={cx(
               "folder-name-wrapper",
               folderId ? "" : "selected-folder"
@@ -26,6 +45,7 @@ export function Sorting({ folders, folderId }) {
           >
             <p className={cx("sort-name")}>전체</p>
           </Link>
+          {/* 폴더 모두 */}
           {folders &&
             folders.map((folder) => {
               return (
@@ -42,15 +62,21 @@ export function Sorting({ folders, folderId }) {
               );
             })}
         </div>
-        <div className={cx("folder-title-wrapper")} onClick={toggleHandler}>
+        <button className={cx("folder-title-wrapper")} onClick={toggleHandler}>
           폴더추가
-          <img src="/images/add.svg" alt="addbutton" />
-        </div>
+          <img src='/images/add.svg' alt='addbutton' />
+        </button>
         {isOpen && (
-          <ModalLayout toggleHandler={toggleHandler} title="폴더 추가">
+          <ModalLayout toggleHandler={toggleHandler} title='폴더 추가'>
             <div className={cx("modal-contents")}>
-              <input placeholder="내용 입력" />
-              <div className={cx("add", "button")}>추가하기</div>
+              <input
+                placeholder='내용 입력'
+                value={inputValue}
+                onChange={handleChange}
+              />
+              <button className={cx("add", "button")} onClick={handleAddFolder}>
+                추가하기
+              </button>
             </div>
           </ModalLayout>
         )}
@@ -58,13 +84,3 @@ export function Sorting({ folders, folderId }) {
     </>
   );
 }
-
-// useEffect(() => {
-//   onChangeName(selectedId); // eslint-disable-next-line
-// }, [selectedId]);
-
-// const onChangeName = (id) => {
-//   const nameById =
-//     id && folders ? folders.find((item) => item.id === id)?.name : "전체";
-//   setName(nameById);
-// };

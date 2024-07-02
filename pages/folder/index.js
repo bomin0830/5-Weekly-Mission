@@ -12,13 +12,13 @@ import { checkAccessToken, getData } from "../../src/utils";
 import styles from "src/styles/folder.module.scss";
 import { useEffect, useState } from "react";
 import classNames from "classnames/bind";
+import { useQuery } from "@tanstack/react-query";
 
 const cx = classNames.bind(styles);
 
 function FolderPage() {
   const [searchKeyWord, setSearchKeyWord] = useState("");
   const [user, setUser] = useState("");
-  const [Folders, setFolders] = useState("");
   const [AllLinks, setAllLinks] = useState("");
 
   function checkArrayBlank(array) {
@@ -27,13 +27,15 @@ function FolderPage() {
 
   async function fetchData() {
     const user = await getData("/users");
-    const Folders = await getData("/folders");
     const AllLinks = await getData("/links");
-
     setUser(user.data[0]);
-    setFolders(Folders.data.folder);
     setAllLinks(AllLinks.data.folder);
   }
+
+  const { data: FoldersData } = useQuery({
+    queryKey: ["Folders"],
+    queryFn: () => getData("/folders"),
+  });
 
   useEffect(() => {
     /* AccessToken없으면 signin페이지로 이동*/
@@ -42,6 +44,8 @@ function FolderPage() {
     }
     fetchData();
   }, []);
+
+  const Folders = FoldersData?.data.folder ?? [];
 
   return (
     <div>
@@ -61,8 +65,8 @@ function FolderPage() {
             <LinkList
               searchKeyWord={searchKeyWord}
               links={AllLinks}
-              createdTime="created_at"
-              image="image_source"
+              createdTime='created_at'
+              image='image_source'
             />
           )}
         </div>

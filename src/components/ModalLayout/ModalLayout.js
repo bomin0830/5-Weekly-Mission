@@ -13,15 +13,12 @@ export function ModalLayout({
   return (
     <>
       <div className={cx("modal-container")}>
-        <img
-          src="images/_close.png"
-          className={cx("close-button")}
-          onClick={toggleHandler}
-          alt="close-button"
-        />
+        <button className={cx("close-button")} onClick={toggleHandler}>
+          X
+        </button>
         <div>
           <p className={cx("title")}>{title}</p>
-          {description && <p className="description">{description}</p>}
+          {description && <p className='description'>{description}</p>}
         </div>
         {children}
       </div>
