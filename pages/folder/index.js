@@ -25,12 +25,12 @@ function FolderPage() {
     return array.length && array.length !== 0 ? false : true;
   }
 
-  async function fetchData() {
-    const user = await getData("/users");
-    const AllLinks = await getData("/links");
-    setUser(user.data[0]);
-    setAllLinks(AllLinks.data.folder);
-  }
+  // async function fetchData() {
+  //   const user = await getData("/users");
+  //   const AllLinks = await getData("/links");
+  //   setUser(user.data[0]);
+  //   setAllLinks(AllLinks.data.folder);
+  // }
 
   const { data: FoldersData } = useQuery({
     queryKey: ["Folders"],
@@ -38,14 +38,13 @@ function FolderPage() {
   });
 
   useEffect(() => {
-    /* AccessToken없으면 signin페이지로 이동*/
     if (!checkAccessToken("signInToken")) {
       location.href = "signin";
     }
-    fetchData();
+    // fetchData();
   }, []);
 
-  const Folders = FoldersData?.data.folder ?? [];
+  const Folders = FoldersData ?? [];
 
   return (
     <div>

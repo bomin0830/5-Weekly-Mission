@@ -84,6 +84,7 @@ export async function getLinkList() {
 }
 
 export async function getData(url) {
+  console.log(url);
   try {
     const response = await axiosInstance.get(url);
     return response.data;
@@ -113,5 +114,16 @@ export function checkAccessToken(accessToken) {
     if (token) {
       return true;
     } else false;
+  }
+}
+
+export async function putFolderName(folderId, inputName) {
+  try {
+    const response = await axiosInstance.post(`folders/${folderId}`, {
+      name: inputName,
+    });
+    return response.data;
+  } catch (error) {
+    console.log(error);
   }
 }

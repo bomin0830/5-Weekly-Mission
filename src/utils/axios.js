@@ -4,7 +4,7 @@ import axios from "axios";
 
 // Axios 인스턴스 생성
 const axiosInstance = axios.create({
-  baseURL: "https://bootcamp-api.codeit.kr/api",
+  baseURL: "https://bootcamp-api.codeit.kr/api/linkbrary/v1/",
 });
 
 // 요청 인터셉터 추가

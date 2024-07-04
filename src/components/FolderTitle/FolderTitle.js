@@ -1,23 +1,40 @@
 import { useState } from "react";
 import { ModalLayout } from "../ModalLayout";
-import Image from "next/image";
 import styles from "./FolderTitle.module.scss";
 import classNames from "classnames/bind";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { putFolderName } from "../../utils";
 
 const cx = classNames.bind(styles);
 
-export function FolderTitle({ name }) {
+export function FolderTitle({ name, folderId }) {
   const [isOpen, setIsOpen] = useState({
     share: false,
     delete: false,
     nameChange: false,
   });
+  const [inputNameValue, setInputNameValue] = useState("");
+
+  const putFolderNameMutation = useMutation({
+    mutationFn: () => putFolderName(folderId, inputNameValue),
+  });
+
+  const queryClient = useQueryClient();
 
   const toggleHandler = (state) => {
     setIsOpen((prev) => ({
       ...prev,
       [state]: !prev[state],
     }));
+  };
+
+  const handleNameChange = (e) => {
+    setInputNameValue(e.target.value);
+  };
+
+  const handleSubmit = () => {
+    putFolderNameMutation.mutate();
+    queryClient.invalidateQueries();
   };
 
   return (
@@ -63,8 +80,10 @@ export function FolderTitle({ name }) {
           toggleHandler={() => toggleHandler("nameChange")}
         >
           <div className={cx("modal-contents")}>
-            <input></input>
-            <div className={cx("add button")}>변경하기</div>
+            <input value={inputNameValue} onChange={handleNameChange}></input>
+            <button className={cx("add button")} onClick={handleSubmit}>
+              변경하기
+            </button>
           </div>
         </ModalLayout>
       )}

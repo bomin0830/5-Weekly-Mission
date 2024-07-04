@@ -39,12 +39,9 @@ function SharedPage() {
     fetchData();
   }, [folderId]);
 
-  console.log("!!!");
-
-  console.log(folder);
   return (
     <>
-      <Header userEmail={user.email} userImgUrl={user["image_source"]} />
+      <Hea der userEmail={user.email} userImgUrl={user["image_source"]} />
       <FolderInfo userName={user.name} folderName={folder.name} />
       <div className={cx("contents-wrapper")}>
         <SearchBar

@@ -13,15 +13,14 @@ import styles from "src/styles/folder.module.scss";
 import { useEffect, useState } from "react";
 import classNames from "classnames/bind";
 import { useRouter } from "next/router";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
 
 const cx = classNames.bind(styles);
 
 function FolderPage() {
   const [linksByQuery, setLinksByQuery] = useState([]);
-  const [Folders, setFolders] = useState([]);
   const [user, setUser] = useState([]);
   const [searchKeyWord, setSearchKeyWord] = useState("");
-  const [name, setName] = useState("");
 
   const router = useRouter();
   const { folderId } = router.query;
@@ -31,27 +30,41 @@ function FolderPage() {
     return !Array.isArray(array) || array.length === 0;
   }
 
+  const { data: FoldersData } = useQuery({
+    queryKey: ["Folders"],
+    queryFn: () => getData("/folders"),
+  });
+
+  const { data: FolderNameData } = useQuery({
+    queryKey: ["FolderName", folderId],
+    queryFn: () => getData(`folders/${folderId}`),
+    enabled: !!folderId,
+  });
+
+  const FolderName = FolderNameData ?? "";
+
   /* 쿼리id로 받은 링크들, 유저데이터, 선택한 폴더 이름 데이터 가져오기*/
-  async function fetchData() {
-    const linkUrl = `/links?folderId=${folderId}`;
-    const FolderUrl = `/folders/${folderId}`;
+  // async function fetchData() {
+  //   const linkUrl = `/links?folderId=${folderId}`;
+  //   const FolderUrl = `/folders/${folderId}`;
 
-    const Folders = await getData("/folders");
-    const linksByQuery = await getData(linkUrl);
-    const user = await getData("/users");
-    const name = await getData(FolderUrl);
+  //   const Folders = await getData("/folders");
+  //   const linksByQuery = await getData(linkUrl);
+  //   const user = await getData("/users");
+  //   const name = await getData(FolderUrl);
 
-    setLinksByQuery(linksByQuery.data.folder);
-    setUser(user.data[0]);
-    setName(name.data[0].name);
-    setFolders(Folders.data.folder);
-  }
+  //   setLinksByQuery(linksByQuery.data.folder);
+  //   setUser(user.data[0]);
+  //   setName(name.data[0].name);
+  //   setFolders(Folders.data.folder);
+  // }
 
-  useEffect(() => {
-    fetchData();
-  }, [folderId]);
+  // useEffect(() => {
+  //   fetchData();
+  // }, [folderId]);
 
-  console.log(Folders);
+  const Folders = FoldersData ?? [];
+
   return (
     <div>
       <Header userEmail={user.email} userImgUrl={user["image_source"]} />
@@ -63,15 +76,15 @@ function FolderPage() {
         />
         <div className={cx("links-wrapper")}>
           <Sorting folders={Folders} folderId={folderId} />
-          <FolderTitle name={name} />
+          <FolderTitle name={FolderName} folderId={folderId} />
           {checkArrayBlank(linksByQuery) ? (
             <ErrorComponent />
           ) : (
             <LinkList
               searchKeyWord={searchKeyWord}
               links={linksByQuery}
-              createdTime="created_at"
-              image="image_source"
+              createdTime='created_at'
+              image='image_source'
             />
           )}
         </div>
